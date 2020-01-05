@@ -6,3 +6,5 @@ PRAŠAU NEKOPIJUOKIT KODO!!!
 Čia dėl jūsų asmeninio saugumo ir sveikatos, tiesiog nesuprasit ką nusikopijavot.
 
 Gražios dienos ;D
+
+P.S. jau dabar nebe tik AI, o viską, kas šaus man į galvą :DD
