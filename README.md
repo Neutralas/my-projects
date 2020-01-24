@@ -7,4 +7,4 @@ PRAŠAU NEKOPIJUOKIT KODO!!!
 
 Gražios dienos ;D
 
-P.S. jau dabar nebe tik AI, o viską, kas šaus man į galvą :DD
+P.S. jau dabar nebe tik AI, o viskas, kas tik šaus man į galvą :DD
