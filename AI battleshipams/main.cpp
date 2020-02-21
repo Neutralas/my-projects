@@ -5,127 +5,146 @@
 
 using namespace std;
 
+void Masyvo_isvalymas(char Soviau[10][10])
+{
+    for (int a=0; a<10; a++)
+    {
+        for(int b=0; b<10; b++)
+        {
+            Soviau[a][b]='0';
+
+            if(a%2==0 && b%2==0)
+            {
+                Soviau[a][b]='6';
+            }
+            else if(a%2==1 && b%2==1)
+            {
+                Soviau[a][b]='6';
+            }
+        }
+    }
+}
+
+void Nusitaikymas(char Soviau[10][10], int x, int y)
+{
+    ///negalimu langeliu pasalinimas
+    Soviau[x-2][y-2]='1';
+    Soviau[x-2][y]='1';
+    Soviau[x][y-2]='1';
+    Soviau[x][y]='1';
+    ///galimu laivo padeciu nustatymas
+    if(Soviau[x-2][y-1]!='1' && Soviau[x-2][y-1]!='2' && Soviau[x-2][y-1]!='3' && x<11 && y<11) Soviau[x-2][y-1]='5';
+    if(Soviau[x][y-1]!='1' && Soviau[x][y-1]!='2' && Soviau[x][y-1]!='3' && x<11 && y<11) Soviau[x][y-1]='5';
+    if(Soviau[x-1][y-2]!='1' && Soviau[x-1][y-2]!='2' && Soviau[x-1][y-2]!='3' && x<11 && y<11) Soviau[x-1][y-2]='5';
+    if(Soviau[x-1][y]!='1' && Soviau[x-1][y]!='2' && Soviau[x-1][y]!='3' && x<11 && y<11) Soviau[x-1][y]='5';
+}
+
+void Saudymas_Aplink(char Soviau[10][10], int &x, int &y)
+{
+    for(int a=9; a>=0; a--)
+    {
+        for(int b=9; b>=0; b--)
+        {
+            if(Soviau[a][b]=='5')
+            {
+                x=a+1;
+                y=b+1;
+            }
+        }
+    }
+}
+
 int main(){
 
-    cout << "0 " << flush << endl; //pranesa, kad teisingai veikia
-    int a=0, laivai=17, laivai2=17;
+    cout << "0 " << flush << endl; ///pranesa, kad teisingai veikia
 
-    int table [100]  = {0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
-                        0, 0, 1, 0, 0, 3, 0, 0, 0, 0,
-                        0, 0, 1, 0, 0, 3, 0, 0, 0, 4,
-                        0, 0, 1, 0, 0, 3, 0, 0, 0, 4,
-                        0, 0, 1, 0, 0, 0, 0, 0, 0, 4,
-                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                        0, 0, 0, 2, 2, 2, 2, 0, 0, 0,
-                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                        0, 0, 0, 0, 0, 0, 0, 0, 5, 0,
-                        0, 0, 0, 0, 0, 0, 0, 0, 5, 0};
+    int laivai=17, x=1, y=1, Enemy_Ships=5; ///1=N, 2=E, 3=S, 4=W;
+    char duomenys='0';
+    bool pataikymas=false, Kryptis[4]={false};
+    char Soviau [10][10];
 
-    int table2 [100] = {0, 0, 1, 1, 1, 1, 1, 0, 0, 0,
+    int table [100]  = {0, 0, 2, 2, 2, 2, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0, 0, 0, 4,
+                        0, 0, 0, 0, 0, 0, 0, 0, 0, 4,
+                        0, 0, 0, 0, 0, 0, 0, 0, 0, 4,
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                        0, 0, 0, 3, 3, 3, 0, 4, 4, 4,
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                        0, 0, 0, 0, 2, 0, 0, 0, 0, 0,
-                        0, 0, 0, 0, 2, 0, 0, 0, 0, 0,
-                        0, 0, 0, 0, 2, 0, 0, 0, 0, 0,
-                        0, 0, 0, 0, 2, 0, 0, 0, 0, 0,
+                        0, 0, 0, 1, 1, 1, 1, 1, 0, 0,
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                        0, 0, 0, 0, 0, 0, 0, 0, 5, 5};
+                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 3, 3, 3, 0, 0, 0, 5, 5, 0};
 
-    for(int u=0; u<10; u++)
+    Masyvo_isvalymas(Soviau);
+
+    while(duomenys!='4')
     {
-        for (int i=0; i<10; i++)
-        {
-            if(a%2==0) cout << table [i+u*10] << " " << flush;
-            else cout << table2 [i+u*10] << " " << flush;
+        ///Suvis:
+        cout << x << " " << y << " cia sauti" << flush << endl;
 
-            if(i%9==0 && i!=0)
+        ///Situacijos lemtis:
+        cin >> duomenys;
+        Soviau[x-1][y-1]=duomenys;
+
+        if(duomenys=='1' && !pataikymas) ///Saudymas i kas antra:
+        {
+            for(int a=9; a>=0; a--)
             {
-                cout << "          ";
-                a++;
-                if(a%2==0)
+                for(int b=9; b>=0; b--)
                 {
-                    cout << endl;
+                    if(Soviau[a][b]=='6')
+                    {
+                        x=a+1;
+                        y=b+1;
+                    }
                 }
-                else if (a%2==1) i=-1;
             }
         }
-    }
-    cout << endl;
-
-    int moves [100];
-    for (int i=0; i<100; i++)  {
-        moves [i] = i;
-    }
-    int moveCount = 100;
-
-    int moves2 [100];
-    for (int i=0; i<100; i++)  {
-        moves2 [i] = i;
-    }
-    int moveCount2 = 100;
-
-    while (true)
-    {
-        for(int u=1; u<=2; u++)
+        else if(duomenys=='1' && pataikymas) ///Saudymas aplink laiva, bet nepataikymas
         {
-            if(u==1)
+            Saudymas_Aplink(Soviau, x, y);
+        }
+        else if(duomenys=='2') ///Saudymas aplink laiva
+        {
+            laivai--;
+            pataikymas=true;
+
+            Nusitaikymas(Soviau, x, y);
+
+            Saudymas_Aplink(Soviau, x, y);
+        }
+        else if(duomenys=='3') ///Saudymas kol kas toliau, bet nebesaudymas aplink laiva.
+        {
+            laivai--;
+            Enemy_Ships--;
+            pataikymas=false;
+
+            for(int a=9; a>=0; a--)
             {
-                srand (time(NULL));
-                int currentMove = rand() % moveCount;
-                int targetY = (moves [currentMove] / 10);
-                int targetX = (moves [currentMove] - 10 * targetY);
-
-                cout << "primas: " << targetX + 1 << " " << targetY + 1 << " " << flush;
-                //char status = '0';
-
-                if(table2[targetX*10+targetY]!=0)
+                for(int b=9; b>=0; b--)
                 {
-                    laivai2--;
-                    cout << "pataike +";
+                    if(Soviau[a][b]=='6')
+                    {
+                        x=a+1;
+                        y=b+1;
+                    }
+                    if(Soviau[a][b]=='5')
+                    {
+                        Soviau[a][b]='1';
+                    }
                 }
-                cout << "\n";
-
-                if (laivai2==0)
-                {
-                    cout << "laimejo pirmasis \n";
-                    cout << "kitam liko " << laivai << " laivu, panaudota " << 101-moveCount;
-                    return 0;
-                }
-
-                moves [currentMove] = 100;
-                moveCount--;
-                sort (moves, moves + 100);
-            }
-            else if(u==2)
-            {
-                srand (time(NULL));
-                int currentMove2 = rand() % moveCount2;
-                int targetY2 = (moves2 [currentMove2] / 10);
-                int targetX2 = (moves2 [currentMove2] - 10 * targetY2);
-
-                cout << "sekundas: " << targetX2 + 1 << " " << targetY2 + 1 << " " << flush;
-                char status = '0';
-
-                if(table[targetX2*10+targetY2]!=0)
-                {
-                    laivai--;
-                    cout << "pataike +";
-                }
-
-                cout << "\n";
-
-                if (laivai==0)
-                {
-                    cout << "laimejo antrasis \n";
-                    cout << "kitam liko " << laivai2 << " laivu, panaudota " << 101-moveCount;
-                    return 0;
-                }
-
-                moves2 [currentMove2] = 100;
-                moveCount2--;
-                sort (moves2, moves2 + 100);
             }
         }
+
+        for (int a=0; a<10; a++)
+        {
+            for(int b=0; b<10; b++)
+            {
+                cout << Soviau[a][b] << " ";
+            }
+            cout << endl;
+        }
+
     }
+
+    return 0;
 }
