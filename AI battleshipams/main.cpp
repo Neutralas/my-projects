@@ -88,7 +88,7 @@ void Saudymas_Toliau(char Soviau[10][10], int &x, int &y) ///Saudau toliau i ses
 
 int main(){
 
-    cout << "0 " << flush << endl; ///pranesa, kad teisingai veikia
+    cout << "0 " << flush; ///pranesa, kad teisingai veikia
 
     int laivai=17, x=1, y=1, Enemy_Ships=5;
     char duomenys='0';
@@ -110,14 +110,13 @@ int main(){
     {
         cout << table[a] << " ";
     }
-    cout << endl;
 
     Masyvo_isvalymas(Soviau); ///isvalau masyva ir kas antra langeli pasizymiu kaip saudytina
 
     while(duomenys!='4')
     {
         ///Suvis:
-        cout << x << " " << y << flush << endl;
+        cout << x-1 << " " << y-1 << " " << flush;
 
         ///Situacijos lemtis:
         cin >> duomenys;
