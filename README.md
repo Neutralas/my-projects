@@ -1,10 +1,10 @@
-# mano-AI
-darau AI ir keliu jį čia. Nepaisant to, jog tai nėra AI,
+# My Personal Projects
 
-PRAŠAU NEKOPIJUOKIT KODO!!!
+The repository for all small/quick projects I've done in my free time.
 
-Čia dėl jūsų asmeninio saugumo ir sveikatos, tiesiog nesuprasit ką nusikopijavot.
+If you don't understand any of them, keep in mind that they might have been documented in Lithuanian, as they were written while I was still in school.
 
-Gražios dienos ;D
+Hope these projects inspire you to go and try to solve interesting problems yourself!
 
-P.S. jau dabar nebe tik AI, o viskas, kas tik šaus man į galvą :DD
+Have a lovely day,
+Simonas
